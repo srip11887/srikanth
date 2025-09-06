@@ -1,0 +1,37 @@
+{
+  "name": "UpsertCoursesToDataverse",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyCoursesToDataverse",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "Blob_CSV_Courses",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "Dataverse_Courses",
+            "type": "DatasetReference"
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings"
+            }
+          },
+          "sink": {
+            "type": "CommonDataServiceForAppsSink",
+            "writeBehavior": "upsert",
+            "sinkRetryCount": 3,
+            "sinkRetryWait": 10
+          }
+        }
+      }
+    ]
+  }
+}
